@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO Demo</title>
+    <link rel="stylesheet" href="./css/theme.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="./app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <meta name="google-signin-client_id" content="632892537043-sl0d79he2idodtnam5r7duk0mtqk8tfj.apps.googleusercontent.com">
+  </head>
+  <body>
+
+    <div id="chatApp" ng-app="chatApp" ng-controller="chatCtrl">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <a href="#" onclick="signOut();">Sign out</a>
+
+        <button onclick="login()" ng-hide="loggedIn">Log in</button>
+        
+        <div ng-show="loggedIn">
+          <label>Select room: </label>
+          <select ng-model="room">
+            <option ng-repeat="available in rooms">{{ available }}</option>
+          </select>
+          <br>
+          <button onclick="join()">Join</button>
+        </div>
+
+        <div ng-show="inRoom">
+          <textarea ng-model="msg"></textarea>
+          <button ng-click="send()">Send</button>
+        </div>
+
+        <ul>
+            <li ng-repeat="msg in messages track by $index">{{msg}}</li>
+        </ul>
+        
+    </div>
+
+  </body>
+</html>
